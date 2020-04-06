@@ -5,7 +5,6 @@ public class MenuManager {
 		Scanner input = new Scanner(System.in);
 		ScheduleManager scheduleManager = new ScheduleManager(input);
 		int num = -1;
-		
 		while (num != 5) {
 			System.out.println("***Schedule Management System Menu***");
 			System.out.println(" 1.Add Schedule");

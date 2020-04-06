@@ -1,6 +1,5 @@
 
 public class Schedule {
-	
 	String name;
 	String date;
 	String location;
@@ -15,8 +14,7 @@ public class Schedule {
 		this.date = date;
 	}
 	
-    public Schedule(String name, String date, String location,String object, int prior) {
-		
+    public Schedule(String name, String date, String location, String object, int prior) {
 		this.name = name;
 		this.date = date;
 		this.location = location;
@@ -25,7 +23,7 @@ public class Schedule {
 	}
     
     public void printInfo() {
-    	System.out.println("Name:" + this.name + " Date:" + this.date + " Location:" + this.location + " Object:" + this.object +" Priority:" + this.prior);
+    	System.out.println("Name:" + name + " Date:" + date + " Location:" + location + " Object:" + object +" Priority:" + prior);
     }
 
 }

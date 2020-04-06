@@ -38,7 +38,40 @@ public class ScheduleManager {
 		System.out.print("Schedule Name:");
 		String scheduleName = input.next();
 		if (schedule.name == scheduleName) {
-			System.out.println("the schedule to be edited is " + scheduleName);
+			int num = -1;
+			while (num != 6) {
+				System.out.println("**Schedule Info Edit Menu**");
+				System.out.println(" 1.Edit Schedule Name");
+				System.out.println(" 2.Edit Schedule Date");
+				System.out.println(" 3.Edit Schedule Location");
+				System.out.println(" 4.Edit Schedule Object");
+				System.out.println(" 5.Edit Schedule Priority");
+				System.out.println("Select one number between 1-5:");
+				num = input.nextInt();
+				if (num == 1) {
+					System.out.print("Schedule Name:");
+					schedule.name = input.next();
+				}
+				else if (num == 2) {
+					System.out.print("Schedule Date:");
+					schedule.date = input.next();
+				}	
+				else if (num == 3) {
+					System.out.print("Schedule Location:");
+					schedule.location = input.next();
+				}		
+				else if (num == 4) {
+					System.out.print("Schedule Object:");
+					schedule.object = input.next();
+				}
+				else if (num == 5) {
+					System.out.print("Schedule Priority:");
+					schedule.prior = input.nextInt();
+				}
+				else {
+					continue;
+				}
+			}
 		}	
 	}
 	
