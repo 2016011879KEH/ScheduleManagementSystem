@@ -1,6 +1,9 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import schedule.Schedule;
+import schedule.UniversitySchedule;
+
 public class ScheduleManager {
 	ArrayList<Schedule> schedules = new ArrayList<Schedule>();
 	Scanner input;
@@ -9,18 +12,29 @@ public class ScheduleManager {
 	}
 
 	public void addSchedule() {
-		Schedule schedule = new Schedule();
-		System.out.print("Schedule Name:");
-		schedule.name = input.next();
-		System.out.print("Schedule Date:");
-		schedule.date = input.next();
-		System.out.print("Schedule Location:");
-		schedule.location = input.next();
-		System.out.print("Schedule Object:");
-		schedule.object = input.next();
-		System.out.print("Schedule Priority:");
-		schedule.prior = input.nextInt();
-		schedules.add(schedule);
+		int kind = 0;
+		Schedule schedule;
+		while (kind != 1 && kind != 2) {
+			System.out.print("1 for Personal");
+			System.out.print("2 for University");
+			System.out.print("Select num for Schedule Kind between 1 and 2:");
+			kind = input.nextInt();
+			if (kind == 1) {
+				schedule = new Schedule();
+				schedule.getUserInput(input);
+				schedules.add(schedule);
+				break;
+			}
+			else if (kind == 2) {
+				schedule = new UniversitySchedule();
+				schedule.getUserInput(input);
+				schedules.add(schedule);
+				break;
+			}
+			else {
+				System.out.print("Select num for Schedule Kind between 1 and 2:");
+			}
+		}
 	}
 
 	public void deleteSchedule() {
@@ -28,7 +42,7 @@ public class ScheduleManager {
 		String scheduleName = input.next();
 		int index = -1;
 		for (int i = 0; i<schedules.size(); i++) {
-			if (schedules.get(i).name.equals(scheduleName)) {
+			if (schedules.get(i).getName().equals(scheduleName)) {
 				index = i;
 				break;
 			}	
@@ -50,7 +64,7 @@ public class ScheduleManager {
 		String scheduleName = input.next();
 		for (int i = 0; i<schedules.size(); i++) {
 			Schedule schedule = schedules.get(i);
-			if (schedule.name .equals(scheduleName)) {
+			if (schedule.getName().equals(scheduleName)) {
 				int num = -1;
 				while (num != 6) {
 					System.out.println("**Schedule Info Edit Menu**");
@@ -63,23 +77,28 @@ public class ScheduleManager {
 					num = input.nextInt();
 					if (num == 1) {
 						System.out.print("Schedule Name:");
-						schedule.name = input.next();
+						String name = input.next();
+						schedule.setName(name);
 					}
 					else if (num == 2) {
 						System.out.print("Schedule Date:");
-						schedule.date = input.next();
+						String date = input.next();
+						schedule.setDate(date);
 					}	
 					else if (num == 3) {
 						System.out.print("Schedule Location:");
-						schedule.location = input.next();
+						String location = input.next();
+						schedule.setLocation(location);
 					}		
 					else if (num == 4) {
 						System.out.print("Schedule Object:");
-						schedule.object = input.next();
+						String object = input.next();
+						schedule.setObject(object);
 					}
 					else if (num == 5) {
 						System.out.print("Schedule Priority:");
-						schedule.prior = input.nextInt();
+						int prior = input.nextInt();
+						schedule.setPrior(prior);
 					}
 					else {
 						continue;
