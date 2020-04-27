@@ -3,6 +3,10 @@ package schedule;
 import java.util.Scanner;
 
 public class UniversitySchedule extends Schedule {
+	
+	public UniversitySchedule (ScheduleKind kind) {
+		super(kind);
+	}
 
 	public void getUserInput(Scanner input) {
 		System.out.print("Schedule Name:");
