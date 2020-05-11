@@ -2,12 +2,14 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import schedule.FitnessSchedule;
+import schedule.PersonalSchedule;
 import schedule.Schedule;
+import schedule.ScheduleInput;
 import schedule.ScheduleKind;
 import schedule.UniversitySchedule;
 
 public class ScheduleManager {
-	ArrayList<Schedule> schedules = new ArrayList<Schedule>();
+	ArrayList<ScheduleInput> schedules = new ArrayList<ScheduleInput>();
 	Scanner input;
 	ScheduleManager(Scanner input){
 		this.input = input;
@@ -15,7 +17,7 @@ public class ScheduleManager {
 
 	public void addSchedule() {
 		int kind = 0;
-		Schedule schedule;
+		ScheduleInput scheduleInput;
 		while (kind != 1 && kind != 2) {
 			System.out.println("1 for Personal");
 			System.out.println("2 for University");
@@ -23,21 +25,21 @@ public class ScheduleManager {
 			System.out.print("Select num 1,2, or 3 for Schedule Kind: ");
 			kind = input.nextInt();
 			if (kind == 1) {
-				schedule = new Schedule(ScheduleKind.Personal);
-				schedule.getUserInput(input);
-				schedules.add(schedule);
+				scheduleInput = new PersonalSchedule(ScheduleKind.Personal);
+				scheduleInput.getUserInput(input);
+				schedules.add(scheduleInput);
 				break;
 			}
 			else if (kind == 2) {
-				schedule = new UniversitySchedule(ScheduleKind.University);
-				schedule.getUserInput(input);
-				schedules.add(schedule);
+				scheduleInput = new UniversitySchedule(ScheduleKind.University);
+				scheduleInput.getUserInput(input);
+				schedules.add(scheduleInput);
 				break;
 			}
 			else if (kind == 3) {
-				schedule = new FitnessSchedule(ScheduleKind.Fitness);
-				schedule.getUserInput(input);
-				schedules.add(schedule);
+				scheduleInput = new FitnessSchedule(ScheduleKind.Fitness);
+				scheduleInput.getUserInput(input);
+				schedules.add(scheduleInput);
 				break;
 			}
 			else {
@@ -49,6 +51,11 @@ public class ScheduleManager {
 	public void deleteSchedule() {
 		System.out.print("Schedule Name:");
 		String scheduleName = input.next();
+		int index = findIndex(scheduleName);
+		removefromSchedules(index ,scheduleName);
+	}
+	
+	public int findIndex (String scheduleName) {
 		int index = -1;
 		for (int i = 0; i<schedules.size(); i++) {
 			if (schedules.get(i).getName().equals(scheduleName)) {
@@ -56,74 +63,71 @@ public class ScheduleManager {
 				break;
 			}	
 		}
-
+		return index;
+	}
+	
+	public int removefromSchedules(int index, String scheduleName) {
 		if (index >= 0) {
 			schedules.remove(index);
-			System.out.println("the schedule" + scheduleName + " is deleted");			
+			System.out.println("the schedule" + scheduleName + " is deleted");
+			return 1;
 		}
 		else {
 			System.out.println("the schedule has not been registered");
-			return;
+			return -1;
 		}
-
 	}
 
 	public void editSchedule() {
 		System.out.print("Schedule Name:");
 		String scheduleName = input.next();
 		for (int i = 0; i<schedules.size(); i++) {
-			Schedule schedule = schedules.get(i);
+			ScheduleInput schedule = schedules.get(i);
 			if (schedule.getName().equals(scheduleName)) {
 				int num = -1;
 				while (num != 6) {
-					System.out.println("**Schedule Info Edit Menu**");
-					System.out.println(" 1.Edit Schedule Name");
-					System.out.println(" 2.Edit Schedule Date");
-					System.out.println(" 3.Edit Schedule Location");
-					System.out.println(" 4.Edit Schedule Object");
-					System.out.println(" 5.Edit Schedule Priority");
-					System.out.println(" 6.Exit");
+					showEditMenu();
 					num = input.nextInt();
-					if (num == 1) {
-						System.out.print("Schedule Name:");
-						String name = input.next();
-						schedule.setName(name);
-					}
-					else if (num == 2) {
-						System.out.print("Schedule Date:");
-						String date = input.next();
-						schedule.setDate(date);
-					}	
-					else if (num == 3) {
-						System.out.print("Schedule Location:");
-						String location = input.next();
-						schedule.setLocation(location);
-					}		
-					else if (num == 4) {
-						System.out.print("Schedule Object:");
-						String object = input.next();
-						schedule.setObject(object);
-					}
-					else if (num == 5) {
-						System.out.print("Schedule Priority:");
-						int prior = input.nextInt();
-						schedule.setPrior(prior);
-					}
-					else {
+					switch(num) {
+					case 1:
+						schedule.setScheduleName(input);
+						break;
+					case 2:
+						schedule.setScheduleDate(input);
+						break;
+					case 3:
+						schedule.setScheduleLocation(input);
+						break;
+					case 4:
+						schedule.setScheduleObject(input);
+						break;
+					case 5:
+						schedule.setSchedulePriority(input);
+						break;
+					default:
 						continue;
-					} // if
+					}
 				} //while
 				break;
 			} // if
-
 		} //for
 	}
 
 	public void viewSchedules() {
-		//		System.out.print("Schedule Name:");
-		//		String scheduleName = input.next();
+		System.out.println("# of registered schedule:" + schedules.size());
 		for (int i = 0; i<schedules.size(); i++) {
 			schedules.get(i).printInfo();
 		}
+	}
+
+	public void showEditMenu() {
+		System.out.println("**Schedule Info Edit Menu**");
+		System.out.println(" 1.Edit Schedule Name");
+		System.out.println(" 2.Edit Schedule Date");
+		System.out.println(" 3.Edit Schedule Location");
+		System.out.println(" 4.Edit Schedule Object");
+		System.out.println(" 5.Edit Schedule Priority");
+		System.out.println(" 6.Exit");
+		
 	}
 }

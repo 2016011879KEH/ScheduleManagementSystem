@@ -2,8 +2,8 @@ package schedule;
 
 import java.util.Scanner;
 
-public class Schedule {
-	
+public abstract class Schedule implements ScheduleInput {
+
 	protected ScheduleKind kind = ScheduleKind.Personal;
 	protected String name;
 	protected String date;
@@ -11,10 +11,10 @@ public class Schedule {
 	protected String object;
 	protected int prior;
 
-	
+
 	public Schedule() {
 	}
-	
+
 	public Schedule(ScheduleKind kind) {
 		this.kind = kind;
 	}
@@ -31,7 +31,7 @@ public class Schedule {
 		this.object = object;
 		this.prior = prior;
 	}
-	
+
 	public Schedule(String name, String date, String location, String object, int prior) {
 		this.kind = kind;
 		this.name = name;
@@ -88,9 +88,41 @@ public class Schedule {
 	public void setPrior(int prior) {
 		this.prior = prior;
 	}
-	
-	public void printInfo() {
-	    String skind = "none";
+
+	public abstract void printInfo();
+
+	public void setScheduleName(Scanner input) {
+		System.out.print("Schedule Name:");
+		String name = input.next();
+		this.setName(name);
+	}
+
+	public void setScheduleDate(Scanner input) {
+		System.out.print("Schedule Date:");
+		String date = input.next();
+		this.setDate(date);
+	}
+
+	public void setScheduleLocation(Scanner input) {
+		System.out.print("Schedule Location:");
+		String location = input.next();
+		this.setLocation(location);
+	}
+
+	public void setScheduleObject(Scanner input) {
+		System.out.print("Schedule Object:");
+		String object = input.next();
+		this.setObject(object);
+	}
+
+	public void setSchedulePriority(Scanner input) {
+		System.out.print("Schedule Priority:");
+		int prior = input.nextInt();
+		this.setPrior(prior);
+	}
+
+	public String getKindString() {
+		String skind = "none";
 		switch(this.kind) {
 		case Personal:
 			skind = "My's";
@@ -104,34 +136,9 @@ public class Schedule {
 		case Fitness:
 			skind = "Fit";
 			break;
-	    default:
-	    	
+		default:
 		}
-		
-		System.out.println("kind:" + skind + " Name:" + name + " Date:" + date + " Location:" + location + " Object:" + object +" Priority:" + prior);
+		return skind;
 	}
-
-	public void getUserInput(Scanner input) {
-		System.out.print("Schedule Name:");
-		String name = input.next();
-		this.setName(name);
-
-		System.out.print("Schedule Date:");
-		String date = input.next();
-		this.setDate(date);
-
-		System.out.print("Schedule Location:");
-		String location = input.next();
-		this.setLocation(location);
-
-		System.out.print("Schedule Object:");
-		String object = input.next();
-		this.setObject(object);
-
-		System.out.print("Schedule Priority:");
-		int prior = input.nextInt();
-		this.setPrior(prior);
-
-	}
-
 }
+
