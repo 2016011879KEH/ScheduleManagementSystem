@@ -2,6 +2,8 @@ package schedule;
 
 import java.util.Scanner;
 
+import exception.DateFormatException;
+
 public class FitnessSchedule extends DeadlineSchedule {
 
 	protected String gymName;
@@ -10,7 +12,7 @@ public class FitnessSchedule extends DeadlineSchedule {
 	public FitnessSchedule(ScheduleKind kind) {
 		super(kind);
 	}
-	
+
 
 	public void getUserInput(Scanner input) {
 		setScheduleName(input);
@@ -26,20 +28,25 @@ public class FitnessSchedule extends DeadlineSchedule {
 		{
 			System.out.print("Does the Gym Membership have a deadline? (Y/N)");
 			answer = input.next().charAt(0);
-			if(answer == 'y' || answer == 'Y') {
-				setScheduleDate(input);
-				break;
-			}
-			else if(answer == 'n' || answer == 'N') {
-				this.setDate("");
-				break;
-			}
-			else {
+			try {
+				if(answer == 'y' || answer == 'Y') {
+					setScheduleDate(input);
+					break;
+				}
+				else if(answer == 'n' || answer == 'N') {
+					this.setDate("");
+					break;
+				}
+				else {
 
+				}
+			}
+			catch(DateFormatException e) {
+				System.out.println("Incorrect Date Format. Put the schedule date that contains /");
 			}
 		}
 	}
-	
+
 	public void printInfo() {
 		String skind = getKindString();
 		System.out.println("kind:" + skind + " Name:" + name + " Date:" + date 
@@ -47,5 +54,5 @@ public class FitnessSchedule extends DeadlineSchedule {
 				+" Priority:" + prior + " GymName:" + location 
 				+ " GymFinalDate:" + date);
 	}
-	
+
 }

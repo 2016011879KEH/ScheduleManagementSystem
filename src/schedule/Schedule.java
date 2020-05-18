@@ -2,6 +2,8 @@ package schedule;
 
 import java.util.Scanner;
 
+import exception.DateFormatException;
+
 public abstract class Schedule implements ScheduleInput {
 
 	protected ScheduleKind kind = ScheduleKind.Personal;
@@ -61,7 +63,10 @@ public abstract class Schedule implements ScheduleInput {
 		return date;
 	}
 
-	public void setDate(String date) {
+	public void setDate(String date) throws DateFormatException {
+		if (date.contains("/") && !date.equals("")) {
+			throw new DateFormatException();
+		}
 		this.date = date;
 	}
 
@@ -98,9 +103,16 @@ public abstract class Schedule implements ScheduleInput {
 	}
 
 	public void setScheduleDate(Scanner input) {
-		System.out.print("Schedule Date:");
-		String date = input.next();
-		this.setDate(date);
+		String date = "";
+		while(date.contains("/")) {
+			System.out.print("Schedule Date:");
+			date = input.next();
+			try {
+				this.setDate(date);
+			} catch (DateFormatException e) {
+				System.out.println("Incorrect Date Format. Put the schedule date that contains /");
+			}
+		}
 	}
 
 	public void setScheduleLocation(Scanner input) {

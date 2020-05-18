@@ -2,13 +2,15 @@ package schedule;
 
 import java.util.Scanner;
 
+import exception.DateFormatException;
+
 public interface ScheduleInput {
 	
 	public String getName();
 	
 	public void setName(String name);
 	
-	public void setDate(String date);
+	public void setDate(String date) throws DateFormatException;
 	
 	public void setLocation(String location);
 	

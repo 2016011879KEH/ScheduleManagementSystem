@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import schedule.FitnessSchedule;
@@ -18,32 +19,41 @@ public class ScheduleManager {
 	public void addSchedule() {
 		int kind = 0;
 		ScheduleInput scheduleInput;
-		while (kind != 1 && kind != 2) {
-			System.out.println("1 for Personal");
-			System.out.println("2 for University");
-			System.out.println("3 for Fitness");
-			System.out.print("Select num 1,2, or 3 for Schedule Kind: ");
-			kind = input.nextInt();
-			if (kind == 1) {
-				scheduleInput = new PersonalSchedule(ScheduleKind.Personal);
-				scheduleInput.getUserInput(input);
-				schedules.add(scheduleInput);
-				break;
+		while (kind < 1 || kind > 3) {
+			try {
+				System.out.println("1 for Personal");
+				System.out.println("2 for University");
+				System.out.println("3 for Fitness");
+				System.out.print("Select num 1,2, or 3 for Schedule Kind: ");
+				kind = input.nextInt();
+				if (kind == 1) {
+					scheduleInput = new PersonalSchedule(ScheduleKind.Personal);
+					scheduleInput.getUserInput(input);
+					schedules.add(scheduleInput);
+					break;
+				}
+				else if (kind == 2) {
+					scheduleInput = new UniversitySchedule(ScheduleKind.University);
+					scheduleInput.getUserInput(input);
+					schedules.add(scheduleInput);
+					break;
+				}
+				else if (kind == 3) {
+					scheduleInput = new FitnessSchedule(ScheduleKind.Fitness);
+					scheduleInput.getUserInput(input);
+					schedules.add(scheduleInput);
+					break;
+				}
+				else {
+					System.out.print("Select num for Schedule Kind between 1 and 2:");
+				}
 			}
-			else if (kind == 2) {
-				scheduleInput = new UniversitySchedule(ScheduleKind.University);
-				scheduleInput.getUserInput(input);
-				schedules.add(scheduleInput);
-				break;
-			}
-			else if (kind == 3) {
-				scheduleInput = new FitnessSchedule(ScheduleKind.Fitness);
-				scheduleInput.getUserInput(input);
-				schedules.add(scheduleInput);
-				break;
-			}
-			else {
-				System.out.print("Select num for Schedule Kind between 1 and 2:");
+			catch(InputMismatchException e) {
+				System.out.println("Please put an integer between 1 and 3!");
+				if(input.hasNext()) {
+					input.next();
+				}
+				kind = -1;
 			}
 		}
 	}
