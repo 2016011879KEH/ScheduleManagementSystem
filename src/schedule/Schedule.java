@@ -1,11 +1,16 @@
 package schedule;
 
+import java.io.Serializable;
 import java.util.Scanner;
 
 import exception.DateFormatException;
 
-public abstract class Schedule implements ScheduleInput {
+public abstract class Schedule implements ScheduleInput,Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4838304340775189541L;
 	protected ScheduleKind kind = ScheduleKind.Personal;
 	protected String name;
 	protected String date;
@@ -64,7 +69,7 @@ public abstract class Schedule implements ScheduleInput {
 	}
 
 	public void setDate(String date) throws DateFormatException {
-		if (date.contains("/") && !date.equals("")) {
+		if (!date.contains("/") && !date.equals("")) {
 			throw new DateFormatException();
 		}
 		this.date = date;
@@ -104,7 +109,7 @@ public abstract class Schedule implements ScheduleInput {
 
 	public void setScheduleDate(Scanner input) {
 		String date = "";
-		while(date.contains("/")) {
+		while(!date.contains("/")) {
 			System.out.print("Schedule Date:");
 			date = input.next();
 			try {

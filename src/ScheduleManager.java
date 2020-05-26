@@ -1,18 +1,27 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import schedule.FitnessSchedule;
 import schedule.PersonalSchedule;
-import schedule.Schedule;
 import schedule.ScheduleInput;
 import schedule.ScheduleKind;
 import schedule.UniversitySchedule;
 
-public class ScheduleManager {
+public class ScheduleManager implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1716189784197805049L;
+	
 	ArrayList<ScheduleInput> schedules = new ArrayList<ScheduleInput>();
-	Scanner input;
+	transient Scanner input;
 	ScheduleManager(Scanner input){
+		this.input = input;
+	}
+	
+	public void setScanner(Scanner input) {
 		this.input = input;
 	}
 
@@ -92,27 +101,27 @@ public class ScheduleManager {
 		System.out.print("Schedule Name:");
 		String scheduleName = input.next();
 		for (int i = 0; i<schedules.size(); i++) {
-			ScheduleInput schedule = schedules.get(i);
-			if (schedule.getName().equals(scheduleName)) {
+			ScheduleInput scheduleInput = schedules.get(i);
+			if (scheduleInput.getName().equals(scheduleName)) {
 				int num = -1;
 				while (num != 6) {
 					showEditMenu();
 					num = input.nextInt();
 					switch(num) {
 					case 1:
-						schedule.setScheduleName(input);
+						scheduleInput.setScheduleName(input);
 						break;
 					case 2:
-						schedule.setScheduleDate(input);
+						scheduleInput.setScheduleDate(input);
 						break;
 					case 3:
-						schedule.setScheduleLocation(input);
+						scheduleInput.setScheduleLocation(input);
 						break;
 					case 4:
-						schedule.setScheduleObject(input);
+						scheduleInput.setScheduleObject(input);
 						break;
 					case 5:
-						schedule.setSchedulePriority(input);
+						scheduleInput.setSchedulePriority(input);
 						break;
 					default:
 						continue;

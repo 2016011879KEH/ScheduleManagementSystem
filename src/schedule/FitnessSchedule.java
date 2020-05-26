@@ -12,8 +12,6 @@ public class FitnessSchedule extends DeadlineSchedule {
 	public FitnessSchedule(ScheduleKind kind) {
 		super(kind);
 	}
-
-
 	public void getUserInput(Scanner input) {
 		setScheduleName(input);
 		setScheduleDatewithYN(input);

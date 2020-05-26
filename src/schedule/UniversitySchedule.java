@@ -21,4 +21,5 @@ public class UniversitySchedule extends DeadlineSchedule {
 		System.out.println("kind:" + skind + " Name:" + name + " Date:" + date + " Location:" + location + " Object:" + object +" Priority:" + prior);
 	}
 
+
 }
