@@ -1,9 +1,6 @@
-/HelloWorld.class
 /MenuManager.class
-/Schedule.class
 /ScheduleManager.class
-/ScheduleKind.class
-/student/
-/schedule/
 /exception/
 /log/
+/schedule/
+/gui/

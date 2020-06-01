@@ -10,14 +10,14 @@ import log.EventLogger;
 
 public class MenuManager {
 	static EventLogger logger = new EventLogger("log.txt");
-	
+
 	public static void main(String[] args) {
-		
-		
+
+
 		Scanner input = new Scanner(System.in);
 		ScheduleManager scheduleManager = getObject("schedulemanager.ser");
 		if(scheduleManager ==null) {
-		   scheduleManager = new ScheduleManager(input);
+			scheduleManager = new ScheduleManager(input);
 		}
 		else {
 			scheduleManager.setScanner(input);
@@ -26,7 +26,7 @@ public class MenuManager {
 		selectMenu(input,scheduleManager);
 		putObject(scheduleManager,"schedulemanager.ser");
 	}
-	
+
 	public static void selectMenu(Scanner input, ScheduleManager scheduleManager) {
 		int num = -1;
 		while (num != 5) {
@@ -73,16 +73,16 @@ public class MenuManager {
 		System.out.println(" 5.Exit");
 		System.out.println("Select one number between 1-5:");
 	}
-	
+
 	public static ScheduleManager getObject(String filename) {
 		ScheduleManager scheduleManager = null;
-		
+
 		try {
 			FileInputStream file = new FileInputStream(filename);
 			ObjectInputStream in = new ObjectInputStream(file);
-			
+
 			scheduleManager = (ScheduleManager) in.readObject();
-			
+
 			in.close();
 			file.close();
 
@@ -90,33 +90,33 @@ public class MenuManager {
 			return scheduleManager;
 
 		} catch (IOException e) {
-			
+
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
-			
+
 			e.printStackTrace();
 		}
-		
+
 		return scheduleManager;
 
 	}
-	
+
 	public static void putObject(ScheduleManager scheduleManager, String filename) {
-		
+
 		try {
 			FileOutputStream file = new FileOutputStream(filename);
 			ObjectOutputStream out = new ObjectOutputStream(file);
-			
+
 			out.writeObject(scheduleManager);
-			
+
 			out.close();
 			file.close();
 
 		} catch (FileNotFoundException e) {
-			
+
 			e.printStackTrace();
 		} catch (IOException e) {
-			
+
 			e.printStackTrace();
 		}
 	}
