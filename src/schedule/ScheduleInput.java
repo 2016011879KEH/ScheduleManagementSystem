@@ -12,11 +12,19 @@ public interface ScheduleInput {
 	
 	public void setDate(String date) throws DateFormatException;
 	
+	public String getDate();
+	
 	public void setLocation(String location);
+	
+	public String getLocation();
 	
 	public void setObject(String object);
 	
+	public String getObject();
+	
 	public void setPrior(int prior);
+	
+	public int getPrior();
 	
 	public void getUserInput(Scanner input);
 	
